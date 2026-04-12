@@ -6,8 +6,8 @@ import logo_big from './logo_big.svg'
 import logo from './logo.png'
 import profile_waguri from './profile_waguri.png'
 import profile_rintaro from './profile_rintaro.png'
-import profile_3 from './profile_enrique.png'
-import profile_4 from './profile_3.png'
+import profile_3 from './profile_3.png'
+import profile_4 from './profile_4.png'
 import profile_5 from './profile_5.png'
 import search_icon from './search_icon.png'
 import send_button from './send_button.svg'
@@ -36,6 +36,16 @@ const assets = {
     code,
     bgImage,
     profile_waguri,
+    profile_rintaro,
+    profile_3,
+    profile_4,
+    profile_5,
+    pic1,
+    pic2,
+    pic3,
+    pic4,
+    img1,
+    img2,
 }
 
 export default assets;
