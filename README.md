@@ -115,6 +115,9 @@ Frontend → Vercel<br>
 Backend → Vercel
 
 ### 📸 Screenshots<br>
+
+<img width="1919" height="947" alt="image" src="https://github.com/user-attachments/assets/040164ac-6299-4e14-8e6c-7f5c92f984ca" />
+
 <img width="1919" height="949" alt="Screenshot 2026-04-01 125025" src="https://github.com/user-attachments/assets/3e53a2e1-d2df-4007-a70f-6cde8938d642" />
 
 ---
