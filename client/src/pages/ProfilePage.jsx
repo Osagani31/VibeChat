@@ -1,62 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import assets, { userDummyData } from '../assets/assets';
+import assets from '../assets/assets';
+import { AuthContext } from '../../context/AuthContextValue.js';
 
 const ProfilePage = () => {
 
-  const initialProfile = (() => {
-    const storedProfile = localStorage.getItem('vibechat-profile');
-    if (storedProfile) {
-      return JSON.parse(storedProfile);
-    }
-    return userDummyData[0];
-  })();
+  const {authUser, updateProfile} = useContext(AuthContext) 
 
-  const [profile, setProfile] = useState(initialProfile);
   const [selectedImg, setSelectedImg] = useState(null)
   const navigate = useNavigate();
-  const [name, setName] = useState(initialProfile?.fullName || '')
-  const [bio, setBio] = useState(initialProfile?.bio || '')
-  const [previewUrl, setPreviewUrl] = useState(initialProfile?.profilePic || assets.logo_icon)
-  const profilePic = profile?.profilePic || assets.logo_icon
+  const [name, setName] = useState(authUser?.fullName || '')
+  const [bio, setBio] = useState(authUser?.bio || '')
 
   useEffect(() => {
-    if (!selectedImg) {
-      setPreviewUrl(profilePic);
-      return;
+    if (authUser) {
+      queueMicrotask(() => {
+        setName(authUser.fullName || '')
+        setBio(authUser.bio || '')
+      })
     }
-
-    const objectUrl = URL.createObjectURL(selectedImg);
-    setPreviewUrl(objectUrl);
-
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedImg, profilePic])
+  }, [authUser])
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
+    let success = false;
 
-    if (!selectedImg) {
-      const updatedProfile = { ...profile, fullName: name, bio };
-      setProfile(updatedProfile);
-      localStorage.setItem('vibechat-profile', JSON.stringify(updatedProfile));
-      navigate('/');
+    if(!selectedImg){
+      success = await updateProfile({fullName: name, bio});
+      if(success) navigate('/');
       return;
     }
 
     const reader = new FileReader();
     reader.readAsDataURL(selectedImg);
-    reader.onload = () => {
+    reader.onload = async () =>{
       const base64Img = reader.result;
-      const updatedProfile = {
-        ...profile,
-        profilePic: base64Img,
-        fullName: name,
-        bio,
-      };
-      setProfile(updatedProfile);
-      localStorage.setItem('vibechat-profile', JSON.stringify(updatedProfile));
-      navigate('/');
+      success = await updateProfile({profilePic: base64Img, fullName: name, bio});
+      if(success) navigate('/');
     }
+    
   }
 
 
@@ -70,8 +52,8 @@ const ProfilePage = () => {
           <h3 className='text-lg'>Profile details</h3>
           <label htmlFor="avatar" className='flex items-center gap-3 cursor-pointer'>
            <input onChange={(e)=>setSelectedImg(e.target.files[0])} type="file" id='avatar' accept='.png, .jpg, .jpeg' hidden/>
-           <img src={previewUrl} alt="Profile preview"
-            className='w-12 h-12 rounded-full object-cover'/>
+           <img src={selectedImg ? URL.createObjectURL(selectedImg) : assets.avatar_icon} alt=""
+            className={`w-12 h-12 ${selectedImg && 'rounded-full'}`}/>
             upload profile image
           </label>
           <input onChange={(e)=>setName(e.target.value)} value={name}
@@ -86,7 +68,7 @@ const ProfilePage = () => {
               <button type='submit' className='bg-linear-to-r from-purple-400
               to-violet-600 text-white p-2 rounded-full text-lg cursor-pointer'>Save</button>
         </form>
-              <img className='max-w-44 aspect-square rounded-full mx-10 max-sm:mt-10 object-cover' src={previewUrl} alt="Profile" />
+        <img className={`max-w-44 aspect-square rounded-full mx-10 max-sm:mt-10 ${selectedImg && 'rounded-full'}`} src={authUser?.profilePic || assets.logo_icon} alt="" />
       </div>
       
     </div>
