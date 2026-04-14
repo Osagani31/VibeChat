@@ -42,6 +42,7 @@ io.on("connection", (socket)=>{
 app.use(express.json({limit:"4mb"}));
 app.use(cors());
 
+app.get("/", (req, res) => res.send("VibeChat backend is running"));
 app.use("/api/status",(req,res)=>res.send("Server is running successfully"));
 app.use("/api/auth", userRouter);
 app.use("/api/messages", messageRouter);
@@ -58,4 +59,4 @@ server.listen(PORT, ()=> console.log(`Server is running on port ${PORT}`));
 
 //Export server for vercel
 
-export default server;
+export default app;

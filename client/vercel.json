@@ -1,11 +1,9 @@
-  //Vercel deployment configuration file to handle client-side routing in React application
-  
-  {
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/"
-      }
-    ]
-  }
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}
 
