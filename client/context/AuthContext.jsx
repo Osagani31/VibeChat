@@ -5,8 +5,11 @@ import { io } from "socket.io-client";
 import { AuthContext } from "./AuthContextValue";
 
 const envBackendUrl = import.meta.env.VITE_BACKEND_URL;
+const productionBackendUrl = "https://vibe-chat-backend-amber.vercel.app";
 const backendUrl = import.meta.env.PROD
-    ? (!envBackendUrl || envBackendUrl.includes("localhost") ? window.location.origin : envBackendUrl)
+    ? (!envBackendUrl || envBackendUrl.includes("localhost") || envBackendUrl.includes("projects.vercel.app")
+        ? productionBackendUrl
+        : envBackendUrl)
     : (envBackendUrl || "http://localhost:5000");
 const axiosInstance = axios.create({ baseURL: backendUrl });
 
