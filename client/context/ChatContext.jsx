@@ -13,7 +13,7 @@ const [unseenMessages, setUnseenMessages] = useState({})
 const {socket, axios} = useContext(AuthContext);
 
 //function to get all users for sidebar
-const getUsers = async() =>{
+const getUsers = useCallback(async() =>{
     try {
        const { data } = await axios.get("/api/messages/users");
        if(data.success){
@@ -23,10 +23,10 @@ const getUsers = async() =>{
     } catch (error) {
         toast.error(error.message)
     }
-}
+}, [axios])
 
 //funcction to get messages for selected user
-const getMessages = async(userId)=>{
+const getMessages = useCallback(async(userId)=>{
     try {
        const { data } = await axios.get(`/api/messages/${userId}`);
        if(data.success){
@@ -40,10 +40,10 @@ const getMessages = async(userId)=>{
     } catch (error) {
         toast.error(error.message)
     }
-}
+}, [axios])
 
 //function to send meessages to selected user
-const sendMessage = async (messageData)=>{
+const sendMessage = useCallback(async (messageData)=>{
      try {
         const{ data } = await axios.post(`/api/messages/send/${selectedUser._id}`, messageData);
         if(data.success){
@@ -54,7 +54,7 @@ const sendMessage = async (messageData)=>{
      } catch (error) {
         toast.error(error.message);
      }
-}
+}, [axios, selectedUser])
 
 //function to subscribe to messages for selected user
 const subscribeToMessages = useCallback(() =>{
