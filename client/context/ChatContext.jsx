@@ -21,6 +21,8 @@ const getUsers = useCallback(async() =>{
         setUnseenMessages(data.unseenMessages)
        }
     } catch (error) {
+        const status = error.response?.status;
+        if(status === 401) return;
         toast.error(error.message)
     }
 }, [axios])
@@ -38,6 +40,8 @@ const getMessages = useCallback(async(userId)=>{
         }))
        }
     } catch (error) {
+        const status = error.response?.status;
+        if(status === 401) return;
         toast.error(error.message)
     }
 }, [axios])
@@ -52,6 +56,8 @@ const sendMessage = useCallback(async (messageData)=>{
             toast.error(data.message);
         }
      } catch (error) {
+        const status = error.response?.status;
+        if(status === 401) return;
         toast.error(error.message);
      }
 }, [axios, selectedUser])
