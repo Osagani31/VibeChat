@@ -54,7 +54,7 @@ This app allows users to send and receive messages instantly without refreshing 
 - Socket.IO
 
 ### Deployment
-- Vercel-->pending 
+- Vercel- Backend-> https://vibe-chat-backend-lkzri7ont-osagani31s-projects.vercel.app/
 
 ---
 
