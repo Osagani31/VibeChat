@@ -20,7 +20,7 @@ This app allows users to send and receive messages instantly without refreshing 
 
 ## 🚀 Live Demo
 
-👉 Comming Soon
+👉 https://vibechatapp-git-main-osagani31s-projects.vercel.app/login
 
 ---
 
@@ -55,6 +55,8 @@ This app allows users to send and receive messages instantly without refreshing 
 
 ### Deployment
 - Vercel- Backend-> https://vibe-chat-backend-lkzri7ont-osagani31s-projects.vercel.app/
+  <br>
+        Frontend->https://vibechatapp-git-main-osagani31s-projects.vercel.app/login
 
 ---
 
